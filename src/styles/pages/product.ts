@@ -10,6 +10,16 @@ export const ProductContainer = styled('main', {
   margin: '0 auto',
 })
 
+export const Load = styled('div', {
+  maxWidth: 1180,
+  margin: '0 auto',
+  height: 656,
+
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+})
+
 export const ImageContainer = styled('div', {
   width: '100%',
   maxWidth: 576,
