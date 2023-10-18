@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import ReactLoading from 'react-loading'
 import axios from 'axios'
 import Head from 'next/head'
+import { CartContext } from '../_app'
 
 interface ProductProps {
   product: {
@@ -29,7 +30,10 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const router = useRouter()
+  const [addingItem, setAddingItem] = useState(false)
   const { isFallback } = useRouter()
+  const { updateCart } = useContext(CartContext)
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false)
 
@@ -42,21 +46,24 @@ export default function Product({ product }: ProductProps) {
   }
 
   async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
+    setAddingItem(true)
+    updateCart(product)
+    router.push('/')
+    // try {
+    //   setIsCreatingCheckoutSession(true)
 
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
+    //   const response = await axios.post('/api/checkout', {
+    //     priceId: product.defaultPriceId,
+    //   })
 
-      const { checkoutUrl } = response.data
+    //   const { checkoutUrl } = response.data
 
-      window.location.href = checkoutUrl
-    } catch (err) {
-      // Conectar com ferramenta de observalidade (Datadog / Sentry)
+    //   window.location.href = checkoutUrl
+    // } catch (err) {
+    //   // Conectar com ferramenta de observalidade (Datadog / Sentry)
 
-      setIsCreatingCheckoutSession(false)
-    }
+    //   setIsCreatingCheckoutSession(false)
+    // }
   }
 
   return (
@@ -74,10 +81,7 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
 
-          <button
-            onClick={handleBuyProduct}
-            disabled={isCreatingCheckoutSession}
-          >
+          <button onClick={handleBuyProduct} disabled={addingItem}>
             Colocar na sacola
           </button>
         </ProductDetails>

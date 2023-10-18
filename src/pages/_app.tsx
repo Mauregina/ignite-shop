@@ -7,7 +7,7 @@ import { globalStyles } from '@/styles/global'
 import { Container } from '@/styles/pages/app'
 import { Header } from '@/components/Header'
 
-interface Cart {
+interface CartItem {
   id: string
   name: string
   imageUrl: string
@@ -17,8 +17,9 @@ interface Cart {
 }
 
 interface CartContextType {
-  cart: Cart[]
+  cart: CartItem[]
   totalQuantityCart: number
+  updateCart: (item: CartItem) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -26,12 +27,16 @@ export const CartContext = createContext({} as CartContextType)
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [cart, setCart] = useState<Cart[]>([])
+  const [cart, setCart] = useState<CartItem[]>([])
   const totalQuantityCart = cart.length
+
+  function updateCart(item: CartItem) {
+    setCart((state) => [...state, item])
+  }
 
   return (
     <Container>
-      <CartContext.Provider value={{ cart, totalQuantityCart }}>
+      <CartContext.Provider value={{ cart, totalQuantityCart, updateCart }}>
         <Header />
         <Component {...pageProps} />
       </CartContext.Provider>
