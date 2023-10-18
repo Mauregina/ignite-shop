@@ -1,35 +1,38 @@
 import type { AppProps } from 'next/app'
-import Image from 'next/image'
-import Link from 'next/link'
+
+import { createContext, useState } from 'react'
 
 import { globalStyles } from '@/styles/global'
 
-import logo from '../assets/logo.svg'
-import {
-  CartContent,
-  CartCount,
-  CartImage,
-  Container,
-  Header,
-} from '@/styles/pages/app'
+import { Container } from '@/styles/pages/app'
+import { Header } from '@/components/Header'
+
+interface Cart {
+  id: string
+  name: string
+  imageUrl: string
+  price: string
+  description: string
+  defaultPriceId: string
+}
+
+interface CartContextType {
+  cart: Cart[]
+}
+
+export const CartContext = createContext({} as CartContextType)
 
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [cart, setCart] = useState<Cart[]>([])
+
   return (
     <Container>
-      <Header>
-        <Link href={'/'} prefetch={false}>
-          <Image src={logo} alt="" />
-        </Link>
-        <CartContent>
-          <Link href={'/'} prefetch={false}>
-            <CartImage size={24} />
-          </Link>
-          <CartCount>1</CartCount>
-        </CartContent>
-      </Header>
-      <Component {...pageProps} />
+      <CartContext.Provider value={{ cart }}>
+        <Header />
+        <Component {...pageProps} />
+      </CartContext.Provider>
     </Container>
   )
 }
