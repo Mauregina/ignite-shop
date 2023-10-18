@@ -1,3 +1,4 @@
+import { Handbag } from 'phosphor-react'
 import { styled } from '..'
 
 export const HomeContainer = styled('main', {
@@ -13,7 +14,6 @@ export const Product = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   color: '$gray4',
   borderRadius: 8,
-  cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
 
@@ -25,39 +25,56 @@ export const Product = styled('div', {
     objectFit: 'cover',
   },
 
-  footer: {
-    position: 'absolute',
-    bottom: '0.25rem',
-    left: '0.25rem',
-    right: '0.25rem',
-
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    borderRadius: 6,
-    padding: '2rem',
-    background: 'rgba(0, 0, 0, 0.6)',
-
-    transform: 'translateY(100%)',
-    opacity: 0,
-    transition: 'all 0.2s ease-in-out',
-
-    strong: {
-      fontSize: '$lg',
-    },
-
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green',
-    },
-  },
-
   '&:hover': {
     footer: {
       transform: 'translateY(0%)',
       opacity: 1,
     },
   },
+})
+
+export const Footer = styled('footer', {
+  position: 'absolute',
+  bottom: '0.25rem',
+  left: '0.25rem',
+  right: '0.25rem',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+
+  borderRadius: 6,
+  padding: '2rem',
+  background: 'rgba(0, 0, 0, 0.6)',
+
+  transform: 'translateY(100%)',
+  opacity: 0,
+  transition: 'all 0.2s ease-in-out',
+})
+
+export const ProductDetail = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: '0.20rem',
+
+  strong: {
+    fontSize: '$lg',
+  },
+
+  span: {
+    fontSize: '$xl',
+    fontWeight: 'bold',
+    color: '$green',
+  },
+})
+
+export const CartContent = styled('div', {
+  borderRadius: 6,
+  background: '$green',
+  padding: '0.5rem',
+})
+
+export const CartImage = styled(Handbag, {
+  color: '$white',
 })

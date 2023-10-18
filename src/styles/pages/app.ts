@@ -28,5 +28,5 @@ export const CartContent = styled('div', {
 })
 
 export const CartImage = styled(Handbag, {
-  color: '$gray5',
+  color: '$gray3',
 })
