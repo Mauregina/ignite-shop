@@ -18,6 +18,7 @@ interface Cart {
 
 interface CartContextType {
   cart: Cart[]
+  totalQuantityCart: number
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -26,10 +27,11 @@ globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
   const [cart, setCart] = useState<Cart[]>([])
+  const totalQuantityCart = cart.length
 
   return (
     <Container>
-      <CartContext.Provider value={{ cart }}>
+      <CartContext.Provider value={{ cart, totalQuantityCart }}>
         <Header />
         <Component {...pageProps} />
       </CartContext.Provider>
