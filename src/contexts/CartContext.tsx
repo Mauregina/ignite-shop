@@ -1,4 +1,5 @@
-import { ActionTypes, cartReducer } from '@/reducers/cart'
+import { addItemAction, deleteItemAction } from '@/reducers/cart/actions'
+import { cartReducer } from '@/reducers/cart/reducer'
 import { ReactNode, createContext, useReducer } from 'react'
 
 interface CartItem {
@@ -36,17 +37,11 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }).format(totalValueCart)
 
   function updateCart(item: CartItem) {
-    dispatch({
-      type: ActionTypes.ADD_ITEM,
-      payload: { item },
-    })
+    dispatch(addItemAction(item))
   }
 
   function removeItem(id: string) {
-    dispatch({
-      type: ActionTypes.DELETE_ITEM,
-      payload: { id },
-    })
+    dispatch(deleteItemAction(id))
   }
 
   return (

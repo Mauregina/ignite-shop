@@ -1,7 +1,4 @@
-export enum ActionTypes {
-  ADD_ITEM = 'ADD_ITEM',
-  DELETE_ITEM = 'DELETE_ITEM',
-}
+import { ActionTypes } from './actions'
 
 interface CartItem {
   id: string
