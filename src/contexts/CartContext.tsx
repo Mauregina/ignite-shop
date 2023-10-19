@@ -8,7 +8,6 @@ import { cartReducer } from '@/reducers/cart/reducer'
 interface CartContextType {
   cart: CartItem[]
   totalQuantityCart: number
-  totalValueCartFormatted: string
   addItem: (item: CartItem) => void
   removeItem: (id: string) => void
 }
@@ -23,11 +22,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   const [cart, dispatch] = useReducer(cartReducer, [])
 
   const totalQuantityCart = cart.length
-  const totalValueCart = cart.reduce((total, item) => total + item.price, 0)
-  const totalValueCartFormatted = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(totalValueCart)
 
   function addItem(item: CartItem) {
     dispatch(addItemAction(item))
@@ -42,7 +36,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
       value={{
         cart,
         totalQuantityCart,
-        totalValueCartFormatted,
         addItem,
         removeItem,
       }}

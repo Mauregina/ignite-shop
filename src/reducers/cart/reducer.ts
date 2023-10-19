@@ -4,7 +4,6 @@ import { ActionTypes } from './actions'
 export function cartReducer(state: CartItem[], action: any) {
   switch (action.type) {
     case ActionTypes.ADD_ITEM: {
-      console.log(action.payload.item)
       return [...state, action.payload.item]
     }
     case ActionTypes.DELETE_ITEM:

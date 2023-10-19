@@ -24,16 +24,22 @@ import { X } from 'phosphor-react'
 import { CartContext } from '@/contexts/CartContext'
 
 export function Cart() {
-  const { cart, totalQuantityCart, totalValueCartFormatted, removeItem } =
-    useContext(CartContext)
+  const { cart, totalQuantityCart, removeItem } = useContext(CartContext)
+
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false)
+
+  const totalValueCart = cart.reduce((total, item) => total + item.price, 0)
+  const totalValueCartFormatted = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(totalValueCart)
 
   function handleRemoveProduct(id: string) {
     removeItem(id)
   }
 
-  async function handleBuyProduct() {
+  async function handleCompletePurchase() {
     try {
       setIsCreatingCheckoutSession(true)
       const response = await axios.post('/api/checkout', [
@@ -92,7 +98,7 @@ export function Cart() {
             </Value>
           </Total>
           <CheckoutButton
-            onClick={handleBuyProduct}
+            onClick={handleCompletePurchase}
             disabled={isCreatingCheckoutSession}
           >
             Finalizar compra
