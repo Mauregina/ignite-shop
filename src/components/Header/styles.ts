@@ -1,5 +1,5 @@
 import { Handbag } from 'phosphor-react'
-import { styled } from '../../styles'
+import { styled } from '@/styles'
 
 export const HeaderContainer = styled('header', {
   padding: '2rem 0',
@@ -17,6 +17,14 @@ export const CartContent = styled('div', {
   borderRadius: 6,
   background: '$gray2',
   padding: '0.5rem',
+})
+
+export const CartButton = styled('button', {
+  borderRadius: 6,
+  background: '$gray2',
+  padding: '0.5rem',
+  border: 0,
+  cursor: 'pointer',
 
   position: 'relative',
 })

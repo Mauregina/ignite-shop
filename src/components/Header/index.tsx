@@ -2,11 +2,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { useContext } from 'react'
+import * as Dialog from '@radix-ui/react-dialog'
 
 import logo from '../../assets/logo.svg'
 
-import { CartContent, CartCount, CartImage, HeaderContainer } from './styles'
+import {
+  CartButton,
+  CartContent,
+  CartCount,
+  CartImage,
+  HeaderContainer,
+} from './styles'
 import { CartContext } from '@/pages/_app'
+
+import { Cart } from '@/components/Cart'
 
 export function Header() {
   const { totalQuantityCart } = useContext(CartContext)
@@ -17,18 +26,22 @@ export function Header() {
       <Link href={'/'} prefetch={false}>
         <Image src={logo} alt="" />
       </Link>
-      <CartContent>
-        {isCartEmpty ? (
+
+      {isCartEmpty ? (
+        <CartContent>
           <CartImage size={24} />
-        ) : (
-          <>
-            <Link href={'/'} prefetch={false}>
+        </CartContent>
+      ) : (
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <CartButton>
               <CartImage size={24} />
-            </Link>
-            <CartCount>{totalQuantityCart}</CartCount>
-          </>
-        )}
-      </CartContent>
+              <CartCount>{totalQuantityCart}</CartCount>
+            </CartButton>
+          </Dialog.Trigger>
+          <Cart />
+        </Dialog.Root>
+      )}
     </HeaderContainer>
   )
 }
