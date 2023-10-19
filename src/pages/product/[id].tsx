@@ -14,7 +14,6 @@ import {
 
 import { useRouter } from 'next/router'
 import ReactLoading from 'react-loading'
-import axios from 'axios'
 import Head from 'next/head'
 import { CartContext } from '../_app'
 
@@ -35,8 +34,6 @@ export default function Product({ product }: ProductProps) {
   const [addingItem, setAddingItem] = useState(false)
   const { isFallback } = useRouter()
   const { updateCart } = useContext(CartContext)
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState(false)
 
   if (isFallback) {
     return (
@@ -50,21 +47,6 @@ export default function Product({ product }: ProductProps) {
     setAddingItem(true)
     updateCart(product)
     router.push('/')
-    // try {
-    //   setIsCreatingCheckoutSession(true)
-
-    //   const response = await axios.post('/api/checkout', {
-    //     priceId: product.defaultPriceId,
-    //   })
-
-    //   const { checkoutUrl } = response.data
-
-    //   window.location.href = checkoutUrl
-    // } catch (err) {
-    //   // Conectar com ferramenta de observalidade (Datadog / Sentry)
-
-    //   setIsCreatingCheckoutSession(false)
-    // }
   }
 
   return (

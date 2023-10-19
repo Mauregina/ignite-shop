@@ -1,6 +1,8 @@
 import Image from 'next/image'
 
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
+
+import axios from 'axios'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import {
@@ -22,8 +24,29 @@ import { X } from 'phosphor-react'
 import { CartContext } from '@/pages/_app'
 
 export function Cart() {
-  const { cart, totalQuantityCart, totalValueCartFormatted } =
+  const { cart, totalQuantityCart, totalValueCartFormatted, removeItem } =
     useContext(CartContext)
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
+
+  function handleRemoveProduct(id: string) {
+    removeItem(id)
+  }
+
+  async function handleBuyProduct() {
+    try {
+      setIsCreatingCheckoutSession(true)
+      const response = await axios.post('/api/checkout', {
+        // priceId: product.defaultPriceId,
+      })
+      const { checkoutUrl } = response.data
+      window.location.href = checkoutUrl
+    } catch (err) {
+      // Conectar com ferramenta de observalidade (Datadog / Sentry)
+      setIsCreatingCheckoutSession(false)
+    }
+  }
+
   return (
     <Dialog.Portal>
       <Overlay />
@@ -42,7 +65,9 @@ export function Cart() {
                 <ProductDetails>
                   <span>{item.name}</span>
                   <strong>{item.priceFormatted}</strong>
-                  <button>Remover</button>
+                  <button onClick={() => handleRemoveProduct(item.id)}>
+                    Remover
+                  </button>
                 </ProductDetails>
               </ProductContent>
             ))}
@@ -57,7 +82,12 @@ export function Cart() {
               <strong>{totalValueCartFormatted}</strong>
             </Value>
           </Total>
-          <CheckoutButton>Finalizar compra</CheckoutButton>
+          <CheckoutButton
+            onClick={handleBuyProduct}
+            disabled={isCreatingCheckoutSession}
+          >
+            Finalizar compra
+          </CheckoutButton>
         </CartContent>
       </DialogContent>
     </Dialog.Portal>

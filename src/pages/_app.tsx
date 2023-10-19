@@ -22,6 +22,7 @@ interface CartContextType {
   totalQuantityCart: number
   totalValueCartFormatted: string
   updateCart: (item: CartItem) => void
+  removeItem: (id: string) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -42,10 +43,20 @@ export default function App({ Component, pageProps }: AppProps) {
     setCart((state) => [...state, item])
   }
 
+  function removeItem(id: string) {
+    setCart((state) => state.filter((i) => i.id !== id))
+  }
+
   return (
     <Container>
       <CartContext.Provider
-        value={{ cart, totalQuantityCart, totalValueCartFormatted, updateCart }}
+        value={{
+          cart,
+          totalQuantityCart,
+          totalValueCartFormatted,
+          updateCart,
+          removeItem,
+        }}
       >
         <Header />
         <Component {...pageProps} />
