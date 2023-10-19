@@ -1,3 +1,8 @@
+export enum ActionTypes {
+  ADD_ITEM = 'ADD_ITEM',
+  DELETE_ITEM = 'DELETE_ITEM',
+}
+
 interface CartItem {
   id: string
   name: string
@@ -10,9 +15,9 @@ interface CartItem {
 
 export function cartReducer(state: CartItem[], action: any) {
   switch (action.type) {
-    case 'ADD_ITEM':
+    case ActionTypes.ADD_ITEM:
       return [...state, action.payload.item]
-    case 'DELETE_ITEM':
+    case ActionTypes.DELETE_ITEM:
       return state.filter((i) => i.id !== action.payload.id)
     default:
       return state
