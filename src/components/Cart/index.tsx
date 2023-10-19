@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { useContext } from 'react'
+
 import * as Dialog from '@radix-ui/react-dialog'
 import {
   CartContent,
@@ -17,8 +19,11 @@ import {
 } from './styles'
 
 import { X } from 'phosphor-react'
+import { CartContext } from '@/pages/_app'
 
 export function Cart() {
+  const { cart, totalQuantityCart, totalValueCartFormatted } =
+    useContext(CartContext)
   return (
     <Dialog.Portal>
       <Overlay />
@@ -29,30 +34,27 @@ export function Cart() {
         <Dialog.Title>Sacola de compras</Dialog.Title>
         <CartContent>
           <ProductsContainer>
-            <ProductContent>
-              <ImageContainer>
-                <Image
-                  src="https://files.stripe.com/links/MDB8YWNjdF8xTzBvZEZIZE9yUVc0cnhXfGZsX3Rlc3RfUTdMN3BLaWR4bGxOQmN4NXE1MGViYjdE008b1rJNcV"
-                  alt={''}
-                  width={95}
-                  height={95}
-                />
-              </ImageContainer>
-              <ProductDetails>
-                <h1>Camiseta Beyond the Limits</h1>
-                <span>R$ 79,90</span>
-                <button>Remover</button>
-              </ProductDetails>
-            </ProductContent>
+            {cart.map((item) => (
+              <ProductContent key={item.id}>
+                <ImageContainer>
+                  <Image src={item.imageUrl} alt={''} width={95} height={95} />
+                </ImageContainer>
+                <ProductDetails>
+                  <span>{item.name}</span>
+                  <strong>{item.priceFormatted}</strong>
+                  <button>Remover</button>
+                </ProductDetails>
+              </ProductContent>
+            ))}
           </ProductsContainer>
           <Total>
             <Quantity>
               <span>Quantidade</span>
-              <span>3 itens</span>
+              <span>{totalQuantityCart} itens</span>
             </Quantity>
             <Value>
               <strong>Valor total</strong>
-              <strong>R$ 270,00</strong>
+              <strong>{totalValueCartFormatted}</strong>
             </Value>
           </Total>
           <CheckoutButton>Finalizar compra</CheckoutButton>

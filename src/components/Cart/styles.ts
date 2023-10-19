@@ -57,7 +57,7 @@ export const ProductsContainer = styled('div', {
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  gap: '1rem',
+  gap: '2rem',
 })
 
 export const ProductContent = styled('div', {
@@ -91,12 +91,12 @@ export const ProductDetails = styled('div', {
   alignItems: 'flex-start',
   gap: '1rem',
 
-  h1: {
+  span: {
     fontSize: '$md',
     color: '$gray4',
   },
 
-  span: {
+  strong: {
     display: 'block',
     fontSize: '$md',
     color: '$gray5',

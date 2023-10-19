@@ -11,7 +11,8 @@ interface CartItem {
   id: string
   name: string
   imageUrl: string
-  price: string
+  price: number
+  priceFormatted: string
   description: string
   defaultPriceId: string
 }
@@ -19,6 +20,7 @@ interface CartItem {
 interface CartContextType {
   cart: CartItem[]
   totalQuantityCart: number
+  totalValueCartFormatted: string
   updateCart: (item: CartItem) => void
 }
 
@@ -30,13 +32,21 @@ export default function App({ Component, pageProps }: AppProps) {
   const [cart, setCart] = useState<CartItem[]>([])
   const totalQuantityCart = cart.length
 
+  const totalValueCart = cart.reduce((total, item) => total + item.price, 0)
+  const totalValueCartFormatted = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(totalValueCart)
+
   function updateCart(item: CartItem) {
     setCart((state) => [...state, item])
   }
 
   return (
     <Container>
-      <CartContext.Provider value={{ cart, totalQuantityCart, updateCart }}>
+      <CartContext.Provider
+        value={{ cart, totalQuantityCart, totalValueCartFormatted, updateCart }}
+      >
         <Header />
         <Component {...pageProps} />
       </CartContext.Provider>
