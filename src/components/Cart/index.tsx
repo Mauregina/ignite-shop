@@ -21,7 +21,7 @@ import {
 } from './styles'
 
 import { X } from 'phosphor-react'
-import { CartContext } from '@/pages/_app'
+import { CartContext } from '@/contexts/CartContext'
 
 export function Cart() {
   const { cart, totalQuantityCart, totalValueCartFormatted, removeItem } =

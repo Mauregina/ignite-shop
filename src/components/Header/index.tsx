@@ -13,9 +13,9 @@ import {
   CartImage,
   HeaderContainer,
 } from './styles'
-import { CartContext } from '@/pages/_app'
 
 import { Cart } from '@/components/Cart'
+import { CartContext } from '@/contexts/CartContext'
 
 export function Header() {
   const { totalQuantityCart } = useContext(CartContext)

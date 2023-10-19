@@ -15,7 +15,7 @@ import {
 import { useRouter } from 'next/router'
 import ReactLoading from 'react-loading'
 import Head from 'next/head'
-import { CartContext } from '../_app'
+import { CartContext } from '@/contexts/CartContext'
 
 interface ProductProps {
   product: {
