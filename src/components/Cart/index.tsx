@@ -36,9 +36,18 @@ export function Cart() {
   async function handleBuyProduct() {
     try {
       setIsCreatingCheckoutSession(true)
-      const response = await axios.post('/api/checkout', {
-        // priceId: product.defaultPriceId,
-      })
+      const response = await axios.post('/api/checkout', [
+        {
+          // priceId: product.defaultPriceId,
+          price: 'price_1O0op5HdOrQW4rxWpVuGicgt',
+          quantity: 1,
+        },
+        {
+          // priceId: product.defaultPriceId,
+          price: 'price_1O0ooTHdOrQW4rxWd40xDd4Z',
+          quantity: 2,
+        },
+      ])
       const { checkoutUrl } = response.data
       window.location.href = checkoutUrl
     } catch (err) {

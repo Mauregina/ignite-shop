@@ -1,22 +1,15 @@
-import { addItemAction, deleteItemAction } from '@/reducers/cart/actions'
-import { cartReducer } from '@/reducers/cart/reducer'
 import { ReactNode, createContext, useReducer } from 'react'
 
-interface CartItem {
-  id: string
-  name: string
-  imageUrl: string
-  price: number
-  priceFormatted: string
-  description: string
-  defaultPriceId: string
-}
+import { CartItem } from '@/interfaces/CartItem'
+
+import { addItemAction, deleteItemAction } from '@/reducers/cart/actions'
+import { cartReducer } from '@/reducers/cart/reducer'
 
 interface CartContextType {
   cart: CartItem[]
   totalQuantityCart: number
   totalValueCartFormatted: string
-  updateCart: (item: CartItem) => void
+  addItem: (item: CartItem) => void
   removeItem: (id: string) => void
 }
 
@@ -36,7 +29,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     currency: 'BRL',
   }).format(totalValueCart)
 
-  function updateCart(item: CartItem) {
+  function addItem(item: CartItem) {
     dispatch(addItemAction(item))
   }
 
@@ -50,7 +43,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         cart,
         totalQuantityCart,
         totalValueCartFormatted,
-        updateCart,
+        addItem,
         removeItem,
       }}
     >

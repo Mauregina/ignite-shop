@@ -33,7 +33,7 @@ export default function Product({ product }: ProductProps) {
   const router = useRouter()
   const [addingItem, setAddingItem] = useState(false)
   const { isFallback } = useRouter()
-  const { updateCart } = useContext(CartContext)
+  const { addItem } = useContext(CartContext)
 
   if (isFallback) {
     return (
@@ -43,9 +43,16 @@ export default function Product({ product }: ProductProps) {
     )
   }
 
-  async function handleBuyProduct() {
+  async function handleAddToCart() {
     setAddingItem(true)
-    updateCart(product)
+
+    const newItem = {
+      ...product,
+      productId: product.id,
+      id: String(new Date().getTime()),
+    }
+
+    addItem(newItem)
     router.push('/')
   }
 
@@ -64,7 +71,7 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
 
-          <button onClick={handleBuyProduct} disabled={addingItem}>
+          <button onClick={handleAddToCart} disabled={addingItem}>
             Colocar na sacola
           </button>
         </ProductDetails>

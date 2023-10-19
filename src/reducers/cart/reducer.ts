@@ -1,19 +1,12 @@
+import { CartItem } from '@/interfaces/CartItem'
 import { ActionTypes } from './actions'
-
-interface CartItem {
-  id: string
-  name: string
-  imageUrl: string
-  price: number
-  priceFormatted: string
-  description: string
-  defaultPriceId: string
-}
 
 export function cartReducer(state: CartItem[], action: any) {
   switch (action.type) {
-    case ActionTypes.ADD_ITEM:
+    case ActionTypes.ADD_ITEM: {
+      console.log(action.payload.item)
       return [...state, action.payload.item]
+    }
     case ActionTypes.DELETE_ITEM:
       return state.filter((i) => i.id !== action.payload.id)
     default:
