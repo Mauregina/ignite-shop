@@ -23,6 +23,11 @@ import {
 import { X } from 'phosphor-react'
 import { CartContext } from '@/contexts/CartContext'
 
+interface checkoutItems {
+  price: string
+  quantity: number
+}
+
 export function Cart() {
   const { cart, totalQuantityCart, removeItem } = useContext(CartContext)
 
@@ -35,6 +40,26 @@ export function Cart() {
     currency: 'BRL',
   }).format(totalValueCart)
 
+  const checkoutItems = cart.reduce((accumulator: checkoutItems[], item) => {
+    const existsInAccumulator = accumulator.some(
+      (i) => i.price === item.defaultPriceId,
+    )
+
+    if (existsInAccumulator) {
+      const existingItem = accumulator.find(
+        (i) => i.price === item.defaultPriceId,
+      )
+      existingItem!.quantity++
+    } else {
+      const newItem = {
+        price: item.defaultPriceId,
+        quantity: 1,
+      }
+      accumulator.push(newItem)
+    }
+    return accumulator
+  }, [])
+
   function handleRemoveProduct(id: string) {
     removeItem(id)
   }
@@ -42,18 +67,7 @@ export function Cart() {
   async function handleCompletePurchase() {
     try {
       setIsCreatingCheckoutSession(true)
-      const response = await axios.post('/api/checkout', [
-        {
-          // priceId: product.defaultPriceId,
-          price: 'price_1O0op5HdOrQW4rxWpVuGicgt',
-          quantity: 1,
-        },
-        {
-          // priceId: product.defaultPriceId,
-          price: 'price_1O0ooTHdOrQW4rxWd40xDd4Z',
-          quantity: 2,
-        },
-      ])
+      const response = await axios.post('/api/checkout', checkoutItems)
       const { checkoutUrl } = response.data
       window.location.href = checkoutUrl
     } catch (err) {
