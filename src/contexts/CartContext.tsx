@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useReducer } from 'react'
 
 interface CartItem {
   id: string
@@ -25,9 +25,18 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cart, setCart] = useState<CartItem[]>([])
-  const totalQuantityCart = cart.length
+  const [cart, dispatch] = useReducer((state: CartItem[], action: any) => {
+    switch (action.type) {
+      case 'ADD_ITEM':
+        return [...state, action.payload.item]
+      case 'DELETE_ITEM':
+        return state.filter((i) => i.id !== action.payload.id)
+      default:
+        return state
+    }
+  }, [])
 
+  const totalQuantityCart = cart.length
   const totalValueCart = cart.reduce((total, item) => total + item.price, 0)
   const totalValueCartFormatted = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -35,11 +44,17 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }).format(totalValueCart)
 
   function updateCart(item: CartItem) {
-    setCart((state) => [...state, item])
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: { item },
+    })
   }
 
   function removeItem(id: string) {
-    setCart((state) => state.filter((i) => i.id !== id))
+    dispatch({
+      type: 'DELETE_ITEM',
+      payload: { id },
+    })
   }
 
   return (
