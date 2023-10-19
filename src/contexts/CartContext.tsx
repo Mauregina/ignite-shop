@@ -1,3 +1,4 @@
+import { cartReducer } from '@/reducers/cart'
 import { ReactNode, createContext, useReducer } from 'react'
 
 interface CartItem {
@@ -25,16 +26,7 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cart, dispatch] = useReducer((state: CartItem[], action: any) => {
-    switch (action.type) {
-      case 'ADD_ITEM':
-        return [...state, action.payload.item]
-      case 'DELETE_ITEM':
-        return state.filter((i) => i.id !== action.payload.id)
-      default:
-        return state
-    }
-  }, [])
+  const [cart, dispatch] = useReducer(cartReducer, [])
 
   const totalQuantityCart = cart.length
   const totalValueCart = cart.reduce((total, item) => total + item.price, 0)
