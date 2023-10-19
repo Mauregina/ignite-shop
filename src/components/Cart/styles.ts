@@ -26,6 +26,9 @@ export const DialogContent = styled(Dialog.Content, {
     marginTop: '1rem',
     marginBottom: '2rem',
   },
+
+  display: 'flex',
+  flexDirection: 'column',
 })
 
 export const CloseButton = styled(Dialog.Close, {
@@ -39,10 +42,134 @@ export const CloseButton = styled(Dialog.Close, {
   color: '$gray3',
 })
 
-export const CartContent = styled('div', {})
+export const CartContent = styled('div', {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'stretch',
+})
 
-export const ProductsList = styled('div', {})
+export const ProductsContainer = styled('div', {
+  flex: 1,
 
-export const Total = styled('div', {})
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  gap: '1rem',
+})
 
-export const CheckoutButton = styled('button', {})
+export const ProductContent = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  gap: '2rem',
+})
+
+export const ImageContainer = styled('div', {
+  width: '100%',
+  maxWidth: 95,
+  height: 95,
+  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+  borderRadius: 8,
+  padding: '0.25rem',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  img: {
+    objectFit: 'cover',
+  },
+})
+
+export const ProductDetails = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  gap: '1rem',
+
+  h1: {
+    fontSize: '$md',
+    color: '$gray4',
+  },
+
+  span: {
+    display: 'block',
+    fontSize: '$md',
+    color: '$gray5',
+  },
+
+  button: {
+    background: 'none',
+    border: 0,
+    color: '$green',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    fontSize: '$xs',
+
+    '&:disabled': {
+      opacity: 0.6,
+      cursor: 'not-allowed',
+    },
+  },
+})
+
+export const Total = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'stretch',
+  gap: '0.25rem',
+
+  marginBottom: '3rem',
+})
+
+export const Quantity = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  span: {
+    '&:last-child': {
+      fontSize: '$md',
+    },
+  },
+})
+
+export const Value = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  strong: {
+    fontSize: '$md',
+
+    '&:last-child': {
+      fontSize: '$xl',
+    },
+  },
+})
+
+export const CheckoutButton = styled('button', {
+  width: '100%',
+  background: '$green',
+  border: 0,
+  color: '$white',
+  borderRadius: 8,
+  padding: '1.25rem',
+  cursor: 'pointer',
+  fontWeight: 'bold',
+  fontSize: '$md',
+
+  '&:disabled': {
+    opacity: 0.6,
+    cursor: 'not-allowed',
+  },
+
+  '&:not(:disabled):hover': {
+    background: '$greenlight',
+  },
+})
