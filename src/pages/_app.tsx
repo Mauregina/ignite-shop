@@ -10,10 +10,12 @@ import { CartContextProvider } from '@/contexts/CartContext'
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
+  const isCartVisible = !pageProps.hideCart
+
   return (
     <Container>
       <CartContextProvider>
-        <Header />
+        <Header isCartVisible={isCartVisible} />
         <Component {...pageProps} />
       </CartContextProvider>
     </Container>

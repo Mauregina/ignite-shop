@@ -13,6 +13,20 @@ export const HeaderContainer = styled('header', {
   justifyContent: 'space-between',
 })
 
+export const HeaderWithCart = styled(HeaderContainer, {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+})
+
+export const HeaderNonCart = styled(HeaderContainer, {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+})
+
 export const CartContent = styled('div', {
   borderRadius: 6,
   background: '$gray2',

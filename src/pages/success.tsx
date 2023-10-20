@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head'
+
 import { GetServerSideProps } from 'next'
 
 import { stripe } from '@/lib/stripe'
@@ -10,7 +12,6 @@ import {
   ProductsContainer,
   SuccessContainer,
 } from '@/styles/pages/success'
-import Head from 'next/head'
 
 interface SuccessProps {
   customerName: string
@@ -19,9 +20,14 @@ interface SuccessProps {
     imageUrl: string
     quantity: number
   }[]
+  hideCart: boolean
 }
 
-export default function Success({ customerName, products }: SuccessProps) {
+export default function Success({
+  customerName,
+  products,
+  hideCart,
+}: SuccessProps) {
   const totalQuantity = products.reduce((total, item) => {
     return (total += item.quantity)
   }, 0)
@@ -85,6 +91,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     props: {
       customerName,
       products,
+      hideCart: true,
     },
   }
 }
