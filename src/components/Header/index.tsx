@@ -23,8 +23,10 @@ interface HeaderProps {
 }
 
 export function Header({ isCartVisible }: HeaderProps) {
-  const [isCartOpen, setIsCartOpen] = useState(false)
   const { totalQuantityCart } = useContext(CartContext)
+
+  const [isCartOpen, setIsCartOpen] = useState(false)
+
   const isCartEmpty = totalQuantityCart === 0
 
   return (

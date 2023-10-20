@@ -23,11 +23,7 @@ interface SuccessProps {
   hideCart: boolean
 }
 
-export default function Success({
-  customerName,
-  products,
-  hideCart,
-}: SuccessProps) {
+export default function Success({ customerName, products }: SuccessProps) {
   const totalQuantity = products.reduce((total, item) => {
     return (total += item.quantity)
   }, 0)

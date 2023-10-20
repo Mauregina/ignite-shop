@@ -30,10 +30,12 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  const router = useRouter()
-  const [addingItem, setAddingItem] = useState(false)
-  const { isFallback } = useRouter()
   const { addItem } = useContext(CartContext)
+
+  const router = useRouter()
+  const { isFallback } = useRouter()
+
+  const [addingItem, setAddingItem] = useState(false)
 
   if (isFallback) {
     return (
