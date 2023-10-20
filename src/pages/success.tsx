@@ -31,11 +31,11 @@ export default function Success({ customerName, products }: SuccessProps) {
   return (
     <>
       <Head>
-        <title>Compra efetuada| Ignite Shop</title>
+        <title>Success | Ignite Shop</title>
         <meta name="robots" content="noindex" />
       </Head>
       <SuccessContainer>
-        <h1>Compra Efetuada!</h1>
+        <h1>Purchase Successful!</h1>
         <ProductsContainer>
           {products.map((item, index) => (
             <ImageContainer key={index}>
@@ -44,12 +44,12 @@ export default function Success({ customerName, products }: SuccessProps) {
           ))}
         </ProductsContainer>
         <p>
-          Uhuul <strong>{customerName}</strong>, sua compra de {totalQuantity}{' '}
-          {totalQuantity === 1 ? 'camiseta' : 'camiseta(s)'} já está à caminho
-          da sua casa.
+          <strong>{customerName}</strong>, your purchase of {totalQuantity}{' '}
+          {totalQuantity === 1 ? 'shirt' : 'shirt(s)'} is already on the way to
+          your home.
         </p>
 
-        <Link href="/">Voltar ao catálogo</Link>
+        <Link href="/">Return to catalog</Link>
       </SuccessContainer>
     </>
   )

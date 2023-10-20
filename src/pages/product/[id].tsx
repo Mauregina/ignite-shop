@@ -74,7 +74,7 @@ export default function Product({ product }: ProductProps) {
           <p>{product.description}</p>
 
           <button onClick={handleAddToCart} disabled={addingItem}>
-            Colocar na sacola
+            Add to cart
           </button>
         </ProductDetails>
       </ProductContainer>

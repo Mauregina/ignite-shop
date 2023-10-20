@@ -83,7 +83,7 @@ export function Cart() {
         <CloseButton>
           <X weight="bold" size={24} />
         </CloseButton>
-        <Dialog.Title>Sacola de compras</Dialog.Title>
+        <Dialog.Title>Shopping bag</Dialog.Title>
         <CartContent>
           <ProductsContainer>
             {cart.map((item) => (
@@ -95,7 +95,7 @@ export function Cart() {
                   <span>{item.name}</span>
                   <strong>{item.priceFormatted}</strong>
                   <button onClick={() => handleRemoveProduct(item.id)}>
-                    Remover
+                    Remove
                   </button>
                 </ProductDetails>
               </ProductContent>
@@ -103,11 +103,11 @@ export function Cart() {
           </ProductsContainer>
           <Total>
             <Quantity>
-              <span>Quantidade</span>
-              <span>{totalQuantityCart} itens</span>
+              <span>Quantity</span>
+              <span>{totalQuantityCart} items</span>
             </Quantity>
             <Value>
-              <strong>Valor total</strong>
+              <strong>Total</strong>
               <strong>{totalValueCartFormatted}</strong>
             </Value>
           </Total>
@@ -115,7 +115,7 @@ export function Cart() {
             onClick={handleCompletePurchase}
             disabled={isCreatingCheckoutSession}
           >
-            Finalizar compra
+            Complete Purchase
           </CheckoutButton>
         </CartContent>
       </DialogContent>
