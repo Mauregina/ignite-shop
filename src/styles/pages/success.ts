@@ -40,6 +40,8 @@ export const ProductsContainer = styled('div', {
   marginTop: '4rem',
 
   display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 })
 
 export const ImageContainer = styled('div', {
@@ -49,7 +51,6 @@ export const ImageContainer = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: '50%',
   padding: '0.25rem',
-  marginLeft: '-3rem',
 
   display: 'flex',
   alignItems: 'center',
