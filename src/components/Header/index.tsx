@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 
 import logo from '../../assets/logo.svg'
@@ -23,6 +23,7 @@ interface HeaderProps {
 }
 
 export function Header({ isCartVisible }: HeaderProps) {
+  const [isCartOpen, setIsCartOpen] = useState(false)
   const { totalQuantityCart } = useContext(CartContext)
   const isCartEmpty = totalQuantityCart === 0
 
@@ -38,14 +39,14 @@ export function Header({ isCartVisible }: HeaderProps) {
               <CartImage size={24} />
             </CartContent>
           ) : (
-            <Dialog.Root>
+            <Dialog.Root onOpenChange={(isOpen) => setIsCartOpen(isOpen)}>
               <Dialog.Trigger asChild>
                 <CartButton>
                   <CartImage size={24} />
                   <CartCount>{totalQuantityCart}</CartCount>
                 </CartButton>
               </Dialog.Trigger>
-              <Cart />
+              {isCartOpen && <Cart />}
             </Dialog.Root>
           )}
         </HeaderWithCart>
